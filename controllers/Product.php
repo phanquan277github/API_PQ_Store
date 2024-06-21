@@ -14,7 +14,7 @@ switch ($action) {
     break;
   }
   case "catalogProducts": {
-    $data = $model->getCatalogProducts($_GET["uid"], $_GET["cateId"]); 
+    $data = $model->getCatalogProducts($_GET["uid"], $_GET["cateId"], $_GET["sortType"]); 
     break;
   }
   case "detail": {

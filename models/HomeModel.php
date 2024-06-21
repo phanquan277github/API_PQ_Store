@@ -4,7 +4,7 @@ class HomeModel extends Model
 {
   private $id;
 
-  public static function getSuggestCategories($parent_id = 1)
+  public static function getCategories($parent_id = 1)
   {
     $__conn = DB::getInstance();
     $categories = [];

@@ -44,7 +44,7 @@ class ProductModel extends Model
     return $result;
   }
 
-  public function getCatalogProducts($uid, $cateId)
+  public function getCatalogProducts($uid, $cateId, $orderBy = "id ASC")
   {
     $user = $this->getRow("SELECT id FROM users WHERE oauth_uid = '$uid'");
     $userId = $user["id"];
@@ -52,7 +52,8 @@ class ProductModel extends Model
     $sql = "SELECT p.*, CASE WHEN f.product_id IS NOT NULL THEN true ELSE false END AS favorite
             FROM (products p LEFT JOIN products_category pc ON p.id = pc.product_id) 
             LEFT JOIN favorites f ON p.id = f.product_id AND f.user_id = $userId
-            WHERE pc.category_id = $cateId";
+            WHERE pc.category_id IN (SELECT id FROM categories WHERE id = $cateId or parent_id = $cateId)
+            ORDER BY $orderBy";
     $rs = $this->queryCustom($sql);
     $result = [];
     foreach ($rs as $item) {

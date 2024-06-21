@@ -10,7 +10,9 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
   $action = $_GET["action"];
   switch ($action) { 
-    case "suggestCategories": $data = $model->getSuggestCategories(); break;
+    case "categories": {
+      $data = $model->getCategories($_GET["id"]); break;
+    }
     case "slideshows": $data = $model->getSlideshows(); break;
   }
   echo json_encode($data);

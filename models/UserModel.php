@@ -28,9 +28,11 @@ class UserModel extends Model
     $checkResult = $this->getRow($checkQuery, []);
     
     if ($checkResult != null) {
-      return $this->deleteData('favorites', "id = " . $checkResult['id']);
+      $this->deleteData('favorites', "id = " . $checkResult['id']);
+      return false;
     } else {
-      return $this->insertData("favorites", ['user_id' => $userId, 'product_id' => $productId]);
+      $this->insertData("favorites", ['user_id' => $userId, 'product_id' => $productId]);
+      return true;
     }
   }
 
